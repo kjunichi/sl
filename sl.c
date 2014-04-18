@@ -116,6 +116,7 @@ int main(int argc, char *argv[])
     leaveok(stdscr, TRUE);
     scrollok(stdscr, FALSE);
 
+#ifndef EMSCRIPTEN
     for (x = COLS - 1; ; --x) {
 	if (LOGO == 1) {
 	    if (add_sl(x) == ERR) break;
@@ -132,6 +133,10 @@ int main(int argc, char *argv[])
     }
     mvcur(0, COLS - 1, LINES - 1, 0);
     endwin();
+#else
+  x=COLS - 1;
+  emscripten_set_main_loop(my_main,50,1);
+#endif
 }
 
 
