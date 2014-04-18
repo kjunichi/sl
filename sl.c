@@ -79,6 +79,8 @@ void my_end()
     endwin();
 }
 
+void my_main();
+
 void my_main()
 {
 	if (LOGO == 1) {
