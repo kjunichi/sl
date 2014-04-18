@@ -44,6 +44,10 @@ int LOGO      = 0;
 int FLY       = 0;
 int C51       = 0;
 
+#ifdef EMSCRIPTEN
+int x;
+#endif
+
 int my_mvaddstr(int y, int x, char *str)
 {
     for ( ; x < 0; ++x, ++str)
@@ -68,9 +72,36 @@ void option(char *str)
     }
 }
 
+#ifdef EMSCRIPTEN
+void my_end()
+{
+    mvcur(0, COLS - 1, LINES - 1, 0);
+    endwin();
+}
+
+void my_main()
+{
+	if (LOGO == 1) {
+	  if (add_sl(x) == ERR) {my_end();return;}
+	}
+	else if (C51 == 1) {
+	  if (add_C51(x) == ERR) {my_end();return;}
+	}
+	else {
+	  if (add_D51(x) == ERR) {my_end();return;}
+	}
+	refresh();
+  x--;
+}
+#endif
+
 int main(int argc, char *argv[])
 {
+#ifndef EMSCRIPTEN
     int x, i;
+#else
+  int i;
+#endif
 
     for (i = 1; i < argc; ++i) {
 	if (*argv[i] == '-') {
