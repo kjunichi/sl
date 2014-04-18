@@ -79,7 +79,7 @@ void my_end()
     endwin();
 }
 
-void my_main();
+void my_main(void);
 
 void my_main()
 {
