@@ -1,3 +1,12 @@
+# ここから @kjunichi による変更
+
+PDCurses-emscriptenをビルドして、
+pdcfont.bmpとlibpdcurses.aを持ってくる。
+build.shを編集して
+./build.sh
+
+# ここまで @kjunichi による変更
+
 SL(1): Cure your bad habit of mistyping
 =======================================
 
