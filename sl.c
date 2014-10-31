@@ -39,6 +39,16 @@
 #include <unistd.h>
 #include "sl.h"
 
+void emscripten_sleep(int ms);
+
+void add_smoke(int y, int x);
+void add_man(int y, int x);
+int add_C51(int x);
+int add_D51(int x);
+int add_sl(int x);
+void option(char *str);
+int my_mvaddstr(int y, int x, char *str);
+
 int ACCIDENT  = 0;
 int LOGO      = 0;
 int FLY       = 0;
@@ -83,6 +93,7 @@ void my_main(void);
 
 void my_main()
 {
+while(1) {
 	if (LOGO == 1) {
 	  if (add_sl(x) == ERR) {my_end();return;}
 	}
@@ -94,6 +105,8 @@ void my_main()
 	}
 	refresh();
   x--;
+	emscripten_sleep(40);
+}
 }
 #endif
 
@@ -137,7 +150,8 @@ int main(int argc, char *argv[])
     endwin();
 #else
   x=COLS - 1;
-  emscripten_set_main_loop(my_main,50,1);
+  //emscripten_set_main_loop(my_main,50,1);
+	my_main();
 #endif
 }
 
@@ -264,7 +278,7 @@ add_C51(int x)
 }
 
 
-int add_man(int y, int x)
+void add_man(int y, int x)
 {
     static char *man[2][2] = {{"", "(O)"}, {"Help!", "\\O/"}};
     int i;
@@ -275,7 +289,7 @@ int add_man(int y, int x)
 }
 
 
-int add_smoke(int y, int x)
+void add_smoke(int y, int x)
 #define SMOKEPTNS	16
 {
     static struct smokes {
